@@ -1,0 +1,31 @@
+<?php
+namespace App\ConstantsCollections;
+
+
+use Fsmdev\ConstantsCollection\ConstantsCollection;
+
+class PageAttributesContext extends ConstantsCollection
+{
+    /*
+    |--------------------------------------------------------------------------
+    | Page Attributes Context
+    |--------------------------------------------------------------------------
+    |
+    | Here is where you can add contexts (for ex. Index, Blog, Articles) for
+    | fsmdev/laravel-page-attributes package.
+    | Constants values must be tiny integer. It is recommended to use step 5.
+    |
+    */
+
+    const INDEX = 5;
+
+    /**
+     * @return array
+     */
+    protected static function propertiesName()
+    {
+        return [
+            self::INDEX => 'Index Page',
+        ];
+    }
+}

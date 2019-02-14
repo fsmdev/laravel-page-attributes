@@ -1,0 +1,39 @@
+{
+    "name": "fsmdev/laravel-page-attributes",
+    "description": "Tool for manage meta and other page attributes for seo",
+    "type": "library",
+    "keywords": [
+        "laravel",
+        "meta",
+        "seo",
+        "laravel meta",
+        "laravel seo"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Igor Mozgalov",
+            "email": "fsmdev@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.1.0",
+        "fsmdev/constants-collection": "^1.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fsmdev\\LaravelPageAttributes\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Fsmdev\\LaravelPageAttributes\\PageAttributesServiceProvider"
+            ],
+            "aliases": {
+                "PageAttributes": "Fsmdev\\LaravelPageAttributes\\Facades\\PageAttributes"
+            }
+        }
+    }
+}
