@@ -143,3 +143,42 @@ PageAttributes::set('my_attribute', 'My Value');
 Для изменения view его необходимо создать файл `resouces/views/vendor/page_attributes/meta.blade.php`. Сделать это автоматически можно при помощи команды:
 
     php artisan vendor:publish --provider="Fsmdev\LaravelPageAttributes\PageAttributesServiceProvider" --tag=view
+
+### Использование контекста страниц
+
+Для разделения данных и представления лучше хранить метаданные в базе данных. Когда страница связанна с объектом какой то модели, то это леко решаемо добавлением полей метаданных в модель. Но что делать для страниц типа главной или разделов? Механизм контекста страниц предлагает вариант решения.
+
+#### Установка
+
+    php artisan vendor:publish --provider="Fsmdev\LaravelPageAttributes\PageAttributesServiceProvider" --tag=context
+
+    php artisan migrate
+
+После установки в папке app/ConstantsCollections появится файл с классом `PageAttributesContext`, унаследованный от [ConstantCollection](https://github.com/fsmdev/constants-collection), а так же в базе данных появится таблица `page_attributes`
+
+#### Коллекция PageAttributesContext
+
+В данном классе необходимо указать набор констант, соответствующий страницам, для которых будет использоваться механизм получения атрибутов по контексту. Значения констант должны быть типа `TYNIINT UNSIGNED`. Так же рекомендуеться задать имена констант в методе **propertiesName**. Эти имена могут быть в дальнейшем использованы для создания CRUD класса PageAttribute.
+
+Подробне о работе с классом ConstantsCollection можно почитать [тут](https://github.com/fsmdev/constants-collection).
+
+```php
+# app/ConstantsCollections/PageAttributesContext.php
+
+const INDEX = 5;
+const CONTACTS = 10;
+const BLOG = 15;
+
+protected static function propertiesName()
+{
+    return [
+        self::INDEX => 'Home Page',
+        self::CONTACTS => 'Contacts Page',
+        self::BLOG => 'Blog',
+    ];
+}
+```
+
+#### Модель PageAttribute
+
+В пакет входит модель `Fsmdev\LaravelPageAttributes\Models\PageAttribute`. Миграцией была создана таблица `page_attributes`.
