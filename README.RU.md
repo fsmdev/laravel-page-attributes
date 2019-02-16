@@ -35,7 +35,7 @@ Laravel 5 Page Attributes: мета и другие СЕО атрибуты
 
     php artisan vendor:publish --provider="Fsmdev\LaravelPageAttributes\PageAttributesServiceProvider" --tag=config
 
-### Использование
+### Базовое использование
 
 Большая часть операций, описанных ниже, выполняется с использованием фасада 
 
@@ -63,7 +63,7 @@ PageAttributes::set('my_attribute', 'My Value');
 Для атрибутов страниц можно задать значения по умолчанию. Изначально значения по умолчанию имеют атрибуты `charset` и `viewport`.
 
 ```php
-# app/config.php
+# config/page_attributes.php
 
 'default' => [
 
@@ -98,7 +98,48 @@ PageAttributes::set('my_attribute', 'My Value');
 ```blade
 @title
 ```
+#### Задание собственных шаблонов
+
+Метод **html** для формирования результата использует предопределенные в системе шаблоны html кода атрибутов. Эти шаблоны можно переопределить или добавить новые шаблоны для собственных атрибутов.
+
+```php
+# config/page_attributes.php
+
+'html_templates' => [
+    
+    # Переопределение шаблона для h1
+    'h1' => '<h1 class="some-class"><{value}/h1>',
+    
+    # Создание шаблона для собственного атрибута
+    'my_attribute' => '<p>{value}</p>',
+],
+```
+
+Конфигурация, указанная выше, может использоваться следующим образом.
+
+Контроллер:
+
+```php
+PageAttributes::set('my_attribute', 'My Value');
+```
+Вид:
+
+```blade
+{{ PageAttributes::html('my_attribute') }}
+```
+Результат на странице:
+
+```html
+<p>My Value</p>
+```
 
 #### Использование view
 
-#### Задание собственных шаблонов
+В пакет входит view, который отобразит следующие теги: charset, viewport, title, description, keywords, canonical. Для использования необходмо добавить его в блок `<head>` страницы.
+
+```blade
+@include('page_attributes::meta')
+```
+Для изменения view его необходимо создать файл `resouces/views/vendor/page_attributes/meta.blade.php`. Сделать это автоматически можно при помощи команды:
+
+    php artisan vendor:publish --provider="Fsmdev\LaravelPageAttributes\PageAttributesServiceProvider" --tag=view
