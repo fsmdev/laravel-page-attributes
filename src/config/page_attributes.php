@@ -9,6 +9,5 @@ return [
     ],
 
     'html_templates' => [
-
     ],
 ];

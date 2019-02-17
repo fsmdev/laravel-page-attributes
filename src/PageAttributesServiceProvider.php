@@ -36,8 +36,6 @@ class PageAttributesServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(__DIR__.DIRECTORY_SEPARATOR.'views', 'page_attributes');
 
-        $this->loadMigrationsFrom(__DIR__.DIRECTORY_SEPARATOR.'migrations');
-
         $this->publishes([
             __DIR__.DIRECTORY_SEPARATOR.'views' => resource_path('views/vendor/page_attributes'),
         ], 'views');
@@ -49,7 +47,10 @@ class PageAttributesServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.DIRECTORY_SEPARATOR.'ConstantsCollections/PageAttributesContext.stub'
             => app_path('ConstantsCollections/PageAttributesContext.php'),
-        ], 'constants');
+
+            __DIR__.DIRECTORY_SEPARATOR.'migrations/2019_02_11_052313_create_page_attributes_table.php'
+            => database_path('migrations/'.date('Y_m_d_His').'_create_page_attributes_table.php'),
+        ], 'context');
     }
 
     /**

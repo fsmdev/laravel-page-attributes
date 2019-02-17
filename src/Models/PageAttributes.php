@@ -96,7 +96,7 @@ class PageAttributes
     }
 
     /**
-     * @param null $context
+     * @param integer|null $context
      */
     public function context($context = null)
     {
