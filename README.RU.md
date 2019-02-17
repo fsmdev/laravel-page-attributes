@@ -181,4 +181,53 @@ protected static function propertiesName()
 
 #### Модель PageAttribute
 
-В пакет входит модель `Fsmdev\LaravelPageAttributes\Models\PageAttribute`. Миграцией была создана таблица `page_attributes`.
+В пакет входит модель `Fsmdev\LaravelPageAttributes\Models\PageAttribute`. Миграцией была создана таблица `page_attributes`. Таблица (модель) содержит следующие поля:
+
+**context** (UNSIGNED TINYINT) - содержит значение константы, соответствующей контексту, для которого задается атрибут.
+
+**language** (CHAR(2) NULLABLE) - язык/локаль для которого задается значение атрибута. Если использование многоязычности выставлено в false, этот атрибут не учитывается при выборке данных.
+
+**name** (char(30)) - имя атрибута.
+
+**value** (text) - значение атрибута.
+
+Поля **context**, **language** и **name** образуют униальный индекс и являются ключем к определению значения атрибута.
+
+Пример заполнения данных:
+
+context|language|name|value
+-------|--------|----|-----------
+5|NULL|h1|Awesome Site
+5|NULL|title|Welcome to Awesome Site
+5|NULL|my_attribute|My Value
+15|NULL|h1|My Blog
+
+##### Использование контекста
+
+Для установки контекста атрибутов страницы используется метод **context** фасада PageAttributes.
+
+    context ( integer $context) : void
+
+```php
+PageAttributes::context(PageAttributesContext::INDEX);
+```
+
+Когда контекст установлен методы **get**, **html** и blade-директивы будут использовать модель PageAttribute для поиска значений требуемого атрибута:
+
+```blade
+{{ PageAttributes::html('title'); }}
+```
+
+Вернет (для случая когда данные заполнены как в таблице выше):
+
+```html
+<title>Welcome to Awesome Site</title>
+```
+
+### Приоритет выбора значения атрибута
+
+При определении значения атрибута приоритет источника следующий:
+
+1. Атрибуты, установленные непосредтсвенно методом **set**;
+2. Атрибуты, полученные по контексту (если он установлен);
+3. Значения атрибутов по умолчанию.
