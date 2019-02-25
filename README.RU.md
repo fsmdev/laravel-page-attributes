@@ -140,7 +140,7 @@ PageAttributes::set('my_attribute', 'My Value');
 ```blade
 @include('page_attributes::meta')
 ```
-Для изменения view его необходимо создать файл `resouces/views/vendor/page_attributes/meta.blade.php`. Сделать это автоматически можно при помощи команды:
+Для изменения view необходимо создать файл `resouces/views/vendor/page_attributes/meta.blade.php`. Сделать это автоматически можно при помощи команды:
 
     php artisan vendor:publish --provider="Fsmdev\LaravelPageAttributes\PageAttributesServiceProvider" --tag=view
 
