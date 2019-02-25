@@ -1,7 +1,7 @@
 Laravel 5 Page Attributes: meta and other SEO-important attributes 
 =====================
 
-[Русский](https://github.com/fsmdev/laravel-page-attributes/blob/master/README.RU.md)
+[English](https://github.com/fsmdev/laravel-page-attributes/blob/master/README.md) | [Русский](https://github.com/fsmdev/laravel-page-attributes/blob/master/README.RU.md)
 
 Package for **Laravel 5**, that helps manage metadata and other page attributes, generate html tags, get page attributes from data base and make own page attributes and html templates for they.
 
