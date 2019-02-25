@@ -1,6 +1,8 @@
 Laravel 5 Page Attributes: мета и другие СЕО атрибуты 
 =====================
 
+[English](https://github.com/fsmdev/laravel-page-attributes/blob/master/README.md) | [Русский](https://github.com/fsmdev/laravel-page-attributes/blob/master/README.RU.md)
+
 Расширение для **Laravel 5**, которое позволит устанавливать метаданные и прочие атрибуты страниц, генерировать html (теги), получать атрибуты страницы из базы данных, создавать собственные атрибуты и html для них.
 
 ### Установка
