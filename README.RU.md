@@ -79,7 +79,7 @@ PageAttributes::set('my_attribute', 'My Value');
 
 Для получения значений атрибутов страницы используется метод **get** фасада PageAttributes.
     
-    set ( string $name) : string
+    get ( string $name) : string
 
 #### Получение html 
 
