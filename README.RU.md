@@ -1,6 +1,8 @@
 Laravel 5 Page Attributes: мета и другие СЕО атрибуты 
 =====================
 
+[English](https://github.com/fsmdev/laravel-page-attributes/blob/master/README.md) | [Русский](https://github.com/fsmdev/laravel-page-attributes/blob/master/README.RU.md)
+
 Расширение для **Laravel 5**, которое позволит устанавливать метаданные и прочие атрибуты страниц, генерировать html (теги), получать атрибуты страницы из базы данных, создавать собственные атрибуты и html для них.
 
 ### Установка
@@ -29,7 +31,7 @@ Laravel 5 Page Attributes: мета и другие СЕО атрибуты
 ```
 ### Конфигурация
 
-Если Вы хотите изменить режим многоязычности, спользуемый в механизме получения атрибутов по контексту, то это можно сделать установив значение свойства `FSMDEV_MULTI_LANGUAGE` в .env файле. По умолчанию многоязычный режим выключен (false).
+Если Вы хотите изменить режим многоязычности, используемый в механизме получения атрибутов по контексту, то это можно сделать установив значение свойства `FSMDEV_MULTI_LANGUAGE` в .env файле. По умолчанию многоязычный режим выключен (false).
 
 Для изменения других настроек используется файл config/page_attributes.php, который можно создать вручную или при помощи команды:
 
@@ -47,7 +49,7 @@ use Fsmdev\LaravelPageAttributes\Facades\PageAttributes;
 
 Для установки атрибутов старницы (например, метаданных) используется метод **set** фасада PageAttributes.
 
-    set ( string $name, string $value ) : void
+    set ( string|array $name, string $value ) : void
 
 ```php
 PageAttributes::set('title', 'Awesome Page');
@@ -79,7 +81,7 @@ PageAttributes::set('my_attribute', 'My Value');
 
 Для получения значений атрибутов страницы используется метод **get** фасада PageAttributes.
     
-    set ( string $name) : string
+    get ( string $name) : string
 
 #### Получение html 
 
@@ -98,7 +100,7 @@ PageAttributes::set('my_attribute', 'My Value');
 ```blade
 @title
 ```
-#### Задание собственных шаблонов
+#### Создание собственных шаблонов
 
 Метод **html** для формирования результата использует предопределенные в системе шаблоны html кода атрибутов. Эти шаблоны можно переопределить или добавить новые шаблоны для собственных атрибутов.
 
@@ -140,7 +142,7 @@ PageAttributes::set('my_attribute', 'My Value');
 ```blade
 @include('page_attributes::meta')
 ```
-Для изменения view его необходимо создать файл `resouces/views/vendor/page_attributes/meta.blade.php`. Сделать это автоматически можно при помощи команды:
+Для изменения view необходимо создать файл `resouces/views/vendor/page_attributes/meta.blade.php`. Сделать это автоматически можно при помощи команды:
 
     php artisan vendor:publish --provider="Fsmdev\LaravelPageAttributes\PageAttributesServiceProvider" --tag=view
 
