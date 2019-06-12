@@ -25,7 +25,7 @@ class PageAttributesContext extends ConstantsCollection
     protected static function propertiesName()
     {
         return [
-            self::INDEX => 'Home Page',
+            self::INDEX => __('Home Page'),
         ];
     }
 }

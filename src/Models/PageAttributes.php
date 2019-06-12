@@ -24,19 +24,24 @@ class PageAttributes
     }
 
     /**
-     * @param string $name
+     * @param string|array $name
      * @param string $value
      *
      * @return void
      */
     public function set($name, $value)
     {
-        $this->attributes[$name] = $value;
+        if (!is_array($name)) {
+            $name = [(string)$name];
+        }
+        foreach ($name as $string) {
+            $this->attributes[$string] = $value;
+        }
     }
 
     /**
      * @param string $name
-     * @return mixed|null
+     * @return string|null
      */
     public function get($name)
     {
