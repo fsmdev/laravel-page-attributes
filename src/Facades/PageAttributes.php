@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Facade;
  * @method static string|null get(string $name)
  * @method static string html(string $name)
  * @method  static void context(integer|null $context = null)
- * 
  */
 class PageAttributes extends Facade
 {
