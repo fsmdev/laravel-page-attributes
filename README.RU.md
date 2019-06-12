@@ -49,7 +49,7 @@ use Fsmdev\LaravelPageAttributes\Facades\PageAttributes;
 
 Для установки атрибутов старницы (например, метаданных) используется метод **set** фасада PageAttributes.
 
-    set ( string $name, string $value ) : void
+    set ( string|array $name, string $value ) : void
 
 ```php
 PageAttributes::set('title', 'Awesome Page');
