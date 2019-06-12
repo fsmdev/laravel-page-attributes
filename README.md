@@ -51,7 +51,7 @@ use Fsmdev\LaravelPageAttributes\Facades\PageAttributes;
 
 To set the attributes of the page (for example, metadata), the **set** method of the PageAttributes facade is used.
 
-    set ( string $name, string $value ) : void
+    set ( string|array $name, string $value ) : void
 
 ```php
 PageAttributes::set('title', 'Awesome Page');
