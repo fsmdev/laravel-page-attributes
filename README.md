@@ -148,6 +148,10 @@ To change the view you need to create a file `resouces/views/vendor/page_attribu
 
     php artisan vendor:publish --provider="Fsmdev\LaravelPageAttributes\PageAttributesServiceProvider" --tag=view
 
+#### Overriding the model used in the facade
+
+Change configuration parameter `class` for change model that uses in PageAttributes facade.
+
 ### Page Context usage
 
 For separation data and view, it is better to store metadata in a database. When a page is associated with an object of some kind of model, it is easily solved by adding metadata fields to the model. But what to do for pages like main or categories? The page context mechanism offers a solution.
@@ -227,6 +231,55 @@ Returns (for the case when the data is filled as in the table above):
 ```html
 <title>Welcome to Awesome Site</title>
 ```
+
+### Variables
+
+In page attributes you can use variables. Default syntax:
+
+    {--variable_name--}
+    
+Opening and closing symbols of variable you can change in configuration parameters `variable_open` and `variable_close`.
+
+#### Variable value set
+
+For variable value set this methods of PageAttributes facade is used:
+
+    context ( integer $context, array|null $variables = []) : void
+    
+    variables ( array $variables) : void
+    
+    variable ( string $name, string $value) : void
+    
+First 2 can get array as parameter. Keys of array are variables names.
+
+#### Default values
+
+Default values of variables can be set in configuration parameter `default_variables`.
+
+#### Example
+
+For page context POST_SHOW set title attribute:
+
+    {--post_name--} | Blog | {--site_name--}
+    
+Code:
+
+```php
+# config/page_attributes.php
+
+'default_variables' => [
+    'site_name' => 'Awesome Site',
+],
+
+# Controller
+
+PageAttributes::context(PageAttributesContext::POST_SHOW, [
+    'post_name' => $post->name, // F.e. Post Name is 'About Me'
+]);
+```
+Result in title:
+
+    About Me | Blog | Awesome Site
 
 ### The priority of attribute value selection
 
