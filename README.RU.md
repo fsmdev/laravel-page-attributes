@@ -146,6 +146,10 @@ PageAttributes::set('my_attribute', 'My Value');
 
     php artisan vendor:publish --provider="Fsmdev\LaravelPageAttributes\PageAttributesServiceProvider" --tag=view
 
+#### Переопредеелние модели используемой в фасаде
+
+Изменить модель, используемую в фасаде PageAttributes, можно указав ее в параметре `class` конфигурации.
+
 ### Использование контекста страниц
 
 Для разделения данных и представления лучше хранить метаданные в базе данных. Когда страница связанна с объектом какой то модели, то это леко решаемо добавлением полей метаданных в модель. Но что делать для страниц типа главной или разделов? Механизм контекста страниц предлагает вариант решения.
@@ -204,11 +208,11 @@ context|language|name|value
 5|NULL|my_attribute|My Value
 15|NULL|h1|My Blog
 
-##### Использование контекста
+#### Использование контекста
 
 Для установки контекста атрибутов страницы используется метод **context** фасада PageAttributes.
 
-    context ( integer $context) : void
+    context ( integer $context, array|null $variables = []) : void
 
 ```php
 PageAttributes::context(PageAttributesContext::INDEX);
@@ -225,6 +229,55 @@ PageAttributes::context(PageAttributesContext::INDEX);
 ```html
 <title>Welcome to Awesome Site</title>
 ```
+
+### Использование переменных
+
+При заадании атрибутов страниц можно использовать перменные. Синтаксис по умолчанию:
+
+    {--variable_name--}
+    
+Изменить открывающие и закрывающие символы переменных можно с помощью параметров конфигурации `variable_open` и `variable_close`.
+
+#### Установка значений переменных
+
+Установить значения переменных можно с помощью методов фасада PageAttributes.
+
+    context ( integer $context, array|null $variables = []) : void
+    
+    variables ( array $variables) : void
+    
+    variable ( string $name, string $value) : void
+    
+Первые 2 метода могут принимать массив переменных, где ключами являются имена перменных.
+
+#### Переменные по умолчанию
+
+Задать пемеренные по умолчанию можно с помощью параметра конфигурации `default_variables`.
+
+#### Пример
+
+Для контекста старницы POST_SHOW зададим значение аттрибута title:
+
+    {--post_name--} | Blog | {--site_name--}
+    
+Используем код:
+
+```php
+# config/page_attributes.php
+
+'default_variables' => [
+    'site_name' => 'Awesome Site',
+],
+
+# Controller
+
+PageAttributes::context(PageAttributesContext::POST_SHOW, [
+    'post_name' => $post->name, // F.e. Post Name is 'About Me'
+]);
+```
+Результат в title:
+
+    About Me | Blog | Awesome Site
 
 ### Приоритет выбора значения атрибута
 
