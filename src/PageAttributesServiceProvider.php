@@ -17,7 +17,8 @@ class PageAttributesServiceProvider extends ServiceProvider
     public function register()
     {
         App::singleton('fsmdev_laravel_page_attributes', function() {
-            return new PageAttributes();
+            $class = config('page_attributes.class');
+            return new $class;
         });
 
         $this->mergeConfigFrom(

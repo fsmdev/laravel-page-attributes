@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Facade;
  * @method static void set(string|array $name, string $value)
  * @method static string|null get(string $name)
  * @method static string html(string $name)
- * @method  static void context(integer|null $context = null)
+ * @method static void context(integer|null $context = null, array|null $variables = [])
+ * @method static void variables(array $variables)
+ * @method static void variable(string $name, string $value)
  */
 class PageAttributes extends Facade
 {

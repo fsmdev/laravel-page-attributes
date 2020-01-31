@@ -1,6 +1,9 @@
 <?php
 
 return [
+
+    'class' => 'Fsmdev\LaravelPageAttributes\Models\PageAttributes',
+
     'multi_language' => env('FSMDEV_MULTI_LANGUAGE', false),
 
     'default' => [
@@ -10,4 +13,10 @@ return [
 
     'html_templates' => [
     ],
+
+    'default_variables' => [
+    ],
+
+    'variable_open' => '{--',
+    'variable_close' => '--}',
 ];

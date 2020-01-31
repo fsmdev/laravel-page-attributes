@@ -15,12 +15,19 @@ class PageAttributes
     protected $attributesContext = [];
     protected $attributesDefault = [];
 
+    protected $variables = [];
+    protected $variableOpen;
+    protected $variableClose;
+
     /**
      * PageAttributes constructor.
      */
     public function __construct()
     {
         $this->attributesDefault = config('page_attributes.default');
+        $this->variables = config('page_attributes.default_variables');
+        $this->variableOpen = config('page_attributes.variable_open');
+        $this->variableClose = config('page_attributes.variable_close');
     }
 
     /**
@@ -64,6 +71,9 @@ class PageAttributes
             $value = $this->getCanonical($value);
         }
 
+        # Replace variables
+        $value = strtr($value, $this->prepareVariables());
+
         return $value;
     }
 
@@ -102,12 +112,36 @@ class PageAttributes
 
     /**
      * @param integer|null $context
+     * @param array|null $variables
      */
-    public function context($context = null)
+    public function context($context = null, $variables = [])
     {
         $this->context = $context;
         $this->contextInit = false;
         $this->attributesContext = [];
+
+        if (is_array($variables)) {
+            $this->variables($variables);
+        }
+    }
+
+    /**
+     * @param array $variables
+     */
+    public function variables(array $variables)
+    {
+        foreach ($variables as $key => $value) {
+            $this->variable($key, $value);
+        }
+    }
+
+    /**
+     * @param string $name
+     * @param string $value
+     */
+    public function variable($name, $value)
+    {
+        $this->variables[trim($name)] = (string)$value;
     }
 
     /**
@@ -148,5 +182,17 @@ class PageAttributes
         }
 
         return URL::current().(count($get) ? '?'.implode('&', $get) : '');
+    }
+
+    /**
+     * @return array
+     */
+    protected function prepareVariables()
+    {
+        $result = [];
+        foreach ($this->variables as $key => $value) {
+            $result[$this->variableOpen.$key.$this->variableClose] = $value;
+        }
+        return $result;
     }
 }
