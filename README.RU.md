@@ -146,7 +146,7 @@ PageAttributes::set('my_attribute', 'My Value');
 
     php artisan vendor:publish --provider="Fsmdev\LaravelPageAttributes\PageAttributesServiceProvider" --tag=view
 
-#### Переопредеелние модели используемой в фасаде
+#### Переопределение модели используемой в фасаде
 
 Изменить модель, используемую в фасаде PageAttributes, можно указав ее в параметре `class` конфигурации.
 
